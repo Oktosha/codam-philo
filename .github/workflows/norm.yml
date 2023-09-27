@@ -1,0 +1,13 @@
+name: Norm
+on: 
+  workflow_dispatch: 
+  pull_request:
+      branches: main
+jobs:
+  Norm-running:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: python3 -m pip install --upgrade pip setuptools
+      - run: python3 -m pip install norminette
+      - run: norminette solution

@@ -1,0 +1,20 @@
+{
+	"name": "Codam (School 42) C projects devcontainer",
+
+	"features": {
+		"./features/norminette": {}
+	},
+
+	"customizations": {
+		"vscode": {
+		  	"extensions": ["ms-vscode.cpptools"],
+			"settings": {
+				"[c]": {
+					"editor.insertSpaces": false,
+					"editor.detectIndentation": false,
+					"editor.tabSize": 4
+				}
+			}
+		}
+	}
+}
