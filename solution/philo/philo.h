@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/03 13:13:07 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/03 13:40:41 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_sim_params {
 }	t_sim_params;
 
 typedef struct s_simulation {
-	t_sim_params		params;
+	t_sim_params			params;
 	struct s_philosopher	*philosophers;
 	pthread_mutex_t			*forks;
 	pthread_mutex_t			mutex;

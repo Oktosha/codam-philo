@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 12:13:04 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/03 13:29:26 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/03 13:41:44 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_status	parse_error(char *s)
 
 static t_status	parse_param(char *s, int *res)
 {
-	int i;
+	int	i;
 
 	*res = 0;
 	i = 0;
@@ -44,23 +44,23 @@ t_status	parse_all_params(int argc, char **argv, t_sim_params *params)
 {
 	params->times_each_philo_eats = -1;
 	if (argc < 5 || argc > 6)
-		return parse_error("invalid number of args, must be 4 or 5");
+		return (parse_error("invalid number of args, must be 4 or 5"));
 	if (parse_param(argv[1], &(params->number_of_philosophers)) != SUCCESS)
-		return (parse_error("can't parse arg #1: number_of_philosophers\n"
+		return (parse_error("can't parse arg #1: number_of_philosophers\n" \
 			"must be a positive integer without whitespaces, leading 0 or +"));
 	if (parse_param(argv[2], &(params->time_to_die)) != SUCCESS)
-		return (parse_error("can't parse arg #2: time_to_die\n"
+		return (parse_error("can't parse arg #2: time_to_die\n" \
 			"must be a positive integer without whitespaces, leading 0 or +"));
 	if (parse_param(argv[3], &(params->time_to_eat)) != SUCCESS)
-		return (parse_error("can't parse arg #3: time_to_eat\n"
+		return (parse_error("can't parse arg #3: time_to_eat\n" \
 			"must be a positive integer without whitespaces, leading 0 or +"));
 	if (parse_param(argv[4], &(params->time_to_sleep)) != SUCCESS)
-		return (parse_error("can't parse arg #4: time_to_sleep\n"
+		return (parse_error("can't parse arg #4: time_to_sleep\n" \
 			"must be a positive integer without whitespaces, leading 0 or +"));
 	if (argc == 6 \
 		&& parse_param(argv[5], &(params->times_each_philo_eats)) != SUCCESS)
-		return (parse_error("can't parse optional arg #5: "
-			"[number_of_times_each_philosopher_must_eat]\n"
+		return (parse_error("can't parse optional arg #5: " \
+			"[number_of_times_each_philosopher_must_eat]\n" \
 			"must be a positive integer without whitespaces, leading 0 or +"));
 	return (SUCCESS);
 }
