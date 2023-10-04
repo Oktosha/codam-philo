@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 11:59:24 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/04 12:16:44 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/04 13:59:13 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ static void	ph_init_philos(t_simulation *simulation)
 	{
 		left_fork_i = i;
 		right_fork_i = (i + 1) % simulation->params.n_philos;
+		simulation->philos[i].name = i + 1;
 		simulation->philos[i].left_fork = simulation->forks + left_fork_i;
 		simulation->philos[i].right_fork = simulation->forks + right_fork_i;
 		simulation->philos[i].eaten_meals = 0;
-		simulation->philos[i].latest_meal_start = 0;
+		simulation->philos[i].death_time = simulation->params.time_to_die;
 		simulation->philos[i].simulation = simulation;
 		i += 1;
 	}
@@ -85,7 +86,7 @@ void	ph_cleanup_data(t_simulation *simulation)
 	{
 		status = pthread_mutex_destroy(&(simulation->forks[i]));
 		if (status)
-			printf("warning: problem destroying mutex %d\n", i);
+			printf("warning: problem destroying fork mutex %d\n", i);
 		++i;
 	}
 	status = pthread_mutex_destroy(&(simulation->mutex));
