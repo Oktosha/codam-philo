@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/03 13:40:41 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/04 12:20:07 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,59 @@
 
 # include <pthread.h>
 # include <stdio.h>
+# include <stdlib.h>
 
-struct	s_philosopher;
+struct					s_philosopher;
+typedef pthread_mutex_t	t_fork;
+typedef int				t_relative_time;
+typedef int				t_absolute_time;
+
+typedef enum e_status {
+	PH_SUCCESS = 0,
+	PH_ERROR = 1
+}	t_status;
+
+typedef enum e_sim_status {
+	SIM_INIT = -1,
+	SIM_RUN = 0,
+	SIM_END = 1
+}	t_sim_status;
 
 typedef struct s_sim_params {
-	int	number_of_philosophers;
+	int	n_philos;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
-	int	times_each_philo_eats;
+	int	times_each_eats;
 }	t_sim_params;
 
 typedef struct s_simulation {
 	t_sim_params			params;
-	struct s_philosopher	*philosophers;
-	pthread_mutex_t			*forks;
+	struct s_philosopher	*philos;
+	t_fork					*forks;
 	pthread_mutex_t			mutex;
-	int						is_running;
+	t_sim_status			status;
+	t_absolute_time			start_time;
 }	t_simulation;
 
 typedef struct s_philosopher {
 	pthread_t		thread;
+	void			(*routine)(void *);
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	int				eaten_meals;
-	int				latest_meal_start;
+	t_relative_time	latest_meal_start;
 	t_simulation	*simulation;
-}	t_philosopher;
+}	t_philo;
 
-typedef enum e_status {
-	SUCCESS = 0,
-	ERROR = 1
-}	t_status;
+// data.c
+t_status	ph_init_data(t_simulation *simulation);
+void		ph_cleanup_data(t_simulation *simulation);
 
-t_status	parse_all_params(int argc, char **argv, t_sim_params *params);
+// error.c
+t_status	ph_error(char *s);
+
+// parse.c
+t_status	ph_parse_all_params(int argc, char **argv, t_sim_params *params);
 
 #endif

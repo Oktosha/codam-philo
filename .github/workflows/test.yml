@@ -1,0 +1,13 @@
+name: Test
+on: 
+  workflow_dispatch: 
+  pull_request:
+      branches: main
+jobs:
+  unit-test-parse:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install valgrind
+      - uses: actions/checkout@v3
+      - run: make && valgrind --error-exitcode=23 --leak-check=full -s ./parse-test.exe
+        working-directory: test/parse
