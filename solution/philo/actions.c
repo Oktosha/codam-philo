@@ -6,11 +6,22 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 14:12:04 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/04 14:15:28 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/05 14:23:57 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ph_act_with_lock(t_philo *philo, void * action)
+#include "philo.h"
+
+void	ph_wait_for_the_start(t_philo *philo)
 {
-	
+	int	should_wait;
+
+	should_wait = PH_TRUE;
+	while(should_wait)
+	{
+		pthread_mutex_lock(&(philo->sim->mutex));
+		if (philo->sim->status != SIM_INIT)
+			should_wait = PH_FALSE;
+		pthread_mutex_unlock(&(philo->sim->mutex));
+	}
 }

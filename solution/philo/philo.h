@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/04 14:13:56 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/05 14:20:39 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
 
 # define PH_NOT_FOUND -1
-
+# define PH_NOT_STARTED -1
+# define PH_PHILO_USLEEP_TIME 50
+# define PH_MONITOR_USLEEP_TIME 8
 struct					s_philosopher;
 typedef pthread_mutex_t	t_fork;
-typedef int				t_relative_time;
-typedef int				t_absolute_time;
 
 typedef enum e_ph_bool {
 	PH_FALSE = 0,
@@ -40,21 +42,21 @@ typedef enum e_sim_status {
 	SIM_END = 1
 }	t_sim_status;
 
-typedef struct s_sim_params {
+typedef struct s_sim_args {
 	int	n_philos;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	times_each_eats;
-}	t_sim_params;
+}	t_sim_args;
 
 typedef struct s_simulation {
-	t_sim_params			params;
+	t_sim_args				args;
 	struct s_philosopher	*philos;
 	t_fork					*forks;
 	pthread_mutex_t			mutex;
 	t_sim_status			status;
-	t_absolute_time			start_time;
+	int						start_time;
 }	t_simulation;
 
 typedef struct s_philosopher {
@@ -64,9 +66,15 @@ typedef struct s_philosopher {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	int				eaten_meals;
-	t_relative_time	death_time;
-	t_simulation	*simulation;
+	int				death_time;
+	t_simulation	*sim;
 }	t_philo;
+
+// actions.c
+void		ph_wait_for_the_start(t_philo *philo);
+
+// announce.c
+void		ph_announce(int timestamp, t_philo *philo, char *message);
 
 // data.c
 t_status	ph_init_data(t_simulation *simulation);
@@ -77,11 +85,15 @@ t_status	ph_error(char *s);
 
 // monitor.c
 void		ph_update_status(t_simulation *simulation, int timestamp);
+int			ph_read_status_safely(t_simulation *simulation);
 
 // parse.c
-t_status	ph_parse_all_params(int argc, char **argv, t_sim_params *params);
+t_status	ph_parse_all_args(int argc, char **argv, t_sim_args *args);
+
+// sleep.c
+void		ph_sleep(t_simulation *simulation, int alarm_time);
 
 // time.c
-int			ph_time(t_simulation *simulation);
+int			ph_time(int	simulation_start_time);
 
 #endif
