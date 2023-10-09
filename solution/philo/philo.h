@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/09 10:22:36 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 10:27:07 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		ph_cleanup_data(t_simulation *simulation);
 t_status	ph_error(char *s);
 
 // monitor.c
-void 		ph_monitor(t_simulation *simulation);
+void		ph_monitor(t_simulation *simulation);
 void		ph_update_status(t_simulation *simulation, int timestamp);
 
 // parse.c

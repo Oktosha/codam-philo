@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:31:00 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/09 10:21:55 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 10:26:54 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static	int ph_get_index_of_earliest_dead(t_simulation *sim, int timestamp)
+static int	ph_get_index_of_earliest_dead(t_simulation *sim, int timestamp)
 {
 	int	i;
 	int	ans_i;
@@ -23,13 +23,13 @@ static	int ph_get_index_of_earliest_dead(t_simulation *sim, int timestamp)
 	{
 		if (sim->philos[i].death_time < sim->philos[ans_i].death_time)
 			ans_i = i;
-	}	
+	}
 	if (sim->philos[ans_i].death_time <= timestamp)
 		return (ans_i);
 	return (PH_NOT_FOUND);
 }
 
-static	t_ph_bool ph_all_are_full(t_simulation *sim)
+static t_ph_bool	ph_all_are_full(t_simulation *sim)
 {
 	int	i;
 	int	n_full;
@@ -47,7 +47,7 @@ static	t_ph_bool ph_all_are_full(t_simulation *sim)
 	return (PH_FALSE);
 }
 
-void ph_update_status(t_simulation *simulation, int timestamp)
+void	ph_update_status(t_simulation *simulation, int timestamp)
 {
 	int	dead_i;
 	int	dead_name;
@@ -68,7 +68,7 @@ void ph_update_status(t_simulation *simulation, int timestamp)
 		simulation->status = SIM_END;
 }
 
-void ph_monitor(t_simulation *simulation)
+void	ph_monitor(t_simulation *simulation)
 {
 	int	should_monitor;
 	int	timestamp;

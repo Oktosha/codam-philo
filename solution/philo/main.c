@@ -6,15 +6,15 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 13:47:52 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/09 10:22:43 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 10:25:59 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void ph_set_strategy(t_simulation *sim)
+static void	ph_set_strategy(t_simulation *sim)
 {
-	int i;
+	int	i;
 
 	if (sim->args.n_philos == 1)
 		sim->philos[0].routine = ph_lonely_routine;
