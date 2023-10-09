@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/09 11:01:26 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 11:28:38 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ void		*ph_lonely_routine(void *arg);
 
 // sleep.c
 void		ph_sleep(t_simulation *simulation, int alarm_time);
-
-// start.c
-void		ph_wait_for_the_start(t_philo *philo);
 
 // time.c
 int			ph_time(int offset);

@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 13:47:52 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/09 11:01:05 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 11:14:28 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,13 @@ int	main(int argc, char **argv)
 			NULL, simulation.philos[i].routine, simulation.philos + i);
 		i += 1;
 	}
+	simulation.start_time = ph_time(0);
+	simulation.status = SIM_RUN;
 	pthread_mutex_unlock(&(simulation.mutex));
 	ph_monitor(&simulation);
+	i = 0;
+	while (i < simulation.args.n_philos)
+		pthread_join(simulation.philos[i++].thread, NULL);
 	ph_cleanup_data(&simulation);
 	return (0);
 }

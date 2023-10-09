@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 11:59:24 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/05 14:24:51 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 11:11:06 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static t_status	ph_init_mutexes(t_simulation *simulation)
 			printf("couldn't init fork mutex %d\n", i);
 			return (PH_ERROR);
 		}
+		i += 1;
 	}
 	status = pthread_mutex_init(&(simulation->mutex), NULL);
 	if (status)

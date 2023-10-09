@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:31:00 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/09 10:28:59 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 11:19:14 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ph_update_status(t_simulation *simulation, int timestamp)
 		simulation->status = SIM_END;
 		return ;
 	}
-	if (ph_all_are_full(simulation))
+	if (simulation->args.times_each_eats != -1 && ph_all_are_full(simulation))
 		simulation->status = SIM_END;
 }
 

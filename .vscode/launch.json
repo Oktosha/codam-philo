@@ -2,11 +2,12 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Parse Debug",
+			"name": "main Debug",
 			"request": "launch",
 			"type": "cppdbg",
-			"program": "${workspaceRoot}/test/parse/parse-test.exe",
+			"program": "${workspaceRoot}/solution/philo/philo",
 			"cwd": "${workspaceFolder}",
+			"args": ["2", "500", "100", "200"]
 		},
 	]
 }

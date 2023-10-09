@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:00:32 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/09 11:03:01 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 11:29:15 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	ph_loop(t_philo *philo, t_fork *first_fork, t_fork *second_fork)
 {
 	int	sim_is_running;
 
-	ph_wait_for_the_start(philo);
+	pthread_mutex_lock(&(philo->sim->mutex));
+	pthread_mutex_unlock(&(philo->sim->mutex));
 	sim_is_running = PH_TRUE;
 	while (sim_is_running)
 	{
@@ -79,7 +80,8 @@ void	*ph_lonely_routine(void	*arg)
 	int		timestamp;
 
 	philo = arg;
-	ph_wait_for_the_start(philo);
+	pthread_mutex_lock(&(philo->sim->mutex));
+	pthread_mutex_unlock(&(philo->sim->mutex));
 	pthread_mutex_lock(philo->left_fork);
 	timestamp = ph_time(philo->sim->start_time);
 	ph_announce(timestamp, philo, "has taken a fork");

@@ -1,6 +1,6 @@
 SHELL=/bin/sh
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -pthread
+CFLAGS=-Wall -Wextra -Werror -pthread -g
 
 NAME=philo
 
@@ -15,7 +15,6 @@ monitor.c \
 parse.c \
 routines.c \
 sleep.c \
-start.c \
 time.c
 
 BINARY_FOLDER=bin
