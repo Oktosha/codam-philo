@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/09 10:27:07 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 11:01:26 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_simulation {
 typedef struct s_philosopher {
 	int				name;
 	pthread_t		thread;
-	void			(*routine)(void *);
+	void			*(*routine)(void *);
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	int				eaten_meals;
