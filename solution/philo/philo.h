@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/05 14:20:39 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 10:22:36 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define PH_NOT_STARTED -1
 # define PH_PHILO_USLEEP_TIME 50
 # define PH_MONITOR_USLEEP_TIME 8
+
 struct					s_philosopher;
 typedef pthread_mutex_t	t_fork;
 
@@ -70,9 +71,6 @@ typedef struct s_philosopher {
 	t_simulation	*sim;
 }	t_philo;
 
-// actions.c
-void		ph_wait_for_the_start(t_philo *philo);
-
 // announce.c
 void		ph_announce(int timestamp, t_philo *philo, char *message);
 
@@ -84,16 +82,24 @@ void		ph_cleanup_data(t_simulation *simulation);
 t_status	ph_error(char *s);
 
 // monitor.c
+void 		ph_monitor(t_simulation *simulation);
 void		ph_update_status(t_simulation *simulation, int timestamp);
-int			ph_read_status_safely(t_simulation *simulation);
 
 // parse.c
 t_status	ph_parse_all_args(int argc, char **argv, t_sim_args *args);
 
+// routine.c
+void		*ph_left_to_right_routine(void *arg);
+void		*ph_right_to_left_routine(void *arg);
+void		*ph_lonely_routine(void *arg);
+
 // sleep.c
 void		ph_sleep(t_simulation *simulation, int alarm_time);
 
+// start.c
+void		ph_wait_for_the_start(t_philo *philo);
+
 // time.c
-int			ph_time(int	simulation_start_time);
+int			ph_time(int offset);
 
 #endif

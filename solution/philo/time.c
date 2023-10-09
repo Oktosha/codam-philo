@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 14:05:45 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/05 14:37:04 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 10:01:08 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ph_time(int	offset)
+int	ph_time(int offset)
 {
 	struct timeval	timeval_time;
 	int				absolute_time;

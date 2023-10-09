@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:31:00 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/05 14:25:21 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/09 10:21:55 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,20 @@ void ph_update_status(t_simulation *simulation, int timestamp)
 		simulation->status = SIM_END;
 }
 
-int	ph_read_status_safely(t_simulation *simulation)
+void ph_monitor(t_simulation *simulation)
 {
-	int	status;
+	int	should_monitor;
+	int	timestamp;
 
-	pthread_mutex_lock(&(simulation->mutex));
-	status = simulation->status;
-	pthread_mutex_unlock(&(simulation->mutex));
-	return (status);
+	should_monitor = PH_TRUE;
+	while (should_monitor)
+	{
+		pthread_mutex_lock(&(philo->sim->mutex));
+		timestamp = ph_time(simulation->start_time);
+		ph_update_status(simulation, timestamp);
+		if (philo->sim->status != SIM_RUN)
+			should_monitor = PH_FALSE;
+		pthread_mutex_unlock(&(philo->sim->mutex));
+		usleep(PH_MONITOR_USLEEP_TIME);
+	}
 }
