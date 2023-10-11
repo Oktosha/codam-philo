@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/27 13:47:52 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/11 12:51:28 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/11 15:53:07 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv)
 		i += 1;
 	}
 	simulation.status = SIM_RUN;
+	ph_time_us(PH_TIME_SET);
 	pthread_mutex_unlock(&(simulation.mutex));
 	ph_monitor(&simulation);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 14:05:45 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/11 13:17:58 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/11 15:55:28 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ static t_ph_time	ph_absolute_time_us(void)
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	return ((t_ph_time)(t.tv_sec)) * 1000000ll + (t_ph_time)(t.tv_usec);
-
+	return (((t_ph_time)(t.tv_sec)) * 1000000ll + (t_ph_time)(t.tv_usec));
 }
 
-t_ph_time	ph_time_us(void)
+t_ph_time	ph_time_us(t_ph_time_action action)
 {
 	static t_ph_time	start_time = PH_NOT_STARTED;
-	t_ph_time			t;
 
-	t = ph_absolute_time_us();
-	if (start_time == PH_NOT_STARTED)
+	if (action == PH_TIME_SET)
 	{
-		start_time = t;
-		return (0);
+		start_time = ph_absolute_time_us();
+		return (start_time);
 	}
-	return (t - start_time);
+	if (action == PH_TIME_GET)
+		return (ph_absolute_time_us() - start_time);
+	printf("BUG: requesting time with wrong action constant");
+	return (-100);
 }
 
 t_ph_time	ph_time_to_eat_us(t_simulation *sim)

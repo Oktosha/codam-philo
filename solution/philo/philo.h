@@ -6,7 +6,7 @@
 /*   By: dkolodze <dkolodze@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/29 15:21:31 by dkolodze      #+#    #+#                 */
-/*   Updated: 2023/10/11 13:18:26 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/11 16:16:14 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <unistd.h>
 
 # define PH_NOT_FOUND -1
-# define PH_NOT_STARTED -1
-# define PH_TINY_SLEEP_TIME_US 1000
+# define PH_NOT_STARTED 0
+# define PH_TINY_SLEEP_TIME_US 8
 
 struct					s_philosopher;
 typedef pthread_mutex_t	t_fork;
@@ -42,6 +42,11 @@ typedef enum e_sim_status {
 	SIM_RUN = 0,
 	SIM_END = 1
 }	t_sim_status;
+
+typedef enum e_time_action {
+	PH_TIME_SET,
+	PH_TIME_GET
+}	t_ph_time_action;
 
 typedef struct s_sim_args {
 	int			n_philos;
@@ -96,7 +101,7 @@ void		*ph_lonely_routine(void *arg);
 void		ph_aware_sleep_till(t_ph_time alarm_time_us, t_simulation *sim);
 
 // time.c
-t_ph_time	ph_time_us(void);
+t_ph_time	ph_time_us(t_ph_time_action action);
 t_ph_time	ph_time_to_eat_us(t_simulation *sim);
 t_ph_time	ph_time_to_die_us(t_simulation *sim);
 t_ph_time	ph_time_to_sleep_us(t_simulation *sim);

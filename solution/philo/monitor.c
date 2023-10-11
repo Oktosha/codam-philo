@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:31:00 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/11 12:59:54 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/11 16:19:00 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	ph_get_index_of_earliest_dead(t_simulation *sim, t_ph_time time_us)
 	{
 		if (sim->philos[i].death_time_us < sim->philos[ans_i].death_time_us)
 			ans_i = i;
+		i += 1;
 	}
 	if (sim->philos[ans_i].death_time_us <= time_us)
 		return (ans_i);
@@ -77,11 +78,11 @@ void	ph_monitor(t_simulation *simulation)
 	while (should_monitor)
 	{
 		pthread_mutex_lock(&(simulation->mutex));
-		timestamp = ph_time_us();
+		timestamp = ph_time_us(PH_TIME_GET);
 		ph_update_status(simulation, timestamp);
 		if (simulation->status != SIM_RUN)
 			should_monitor = PH_FALSE;
 		pthread_mutex_unlock(&(simulation->mutex));
-		usleep(PH_TINY_SLEEP_TIME_US);
+		usleep(5000);
 	}
 }

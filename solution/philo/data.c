@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 11:59:24 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/11 13:10:44 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/11 15:35:14 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ static void	ph_init_philos(t_simulation *simulation)
 		simulation->philos[i].left_fork = simulation->forks + left_fork_i;
 		simulation->philos[i].right_fork = simulation->forks + right_fork_i;
 		simulation->philos[i].eaten_meals = 0;
-		simulation->philos[i].death_time_us = \
-			simulation->args.time_to_die_ms * 1000ll;
+		simulation->philos[i].death_time_us = ph_time_to_die_us(simulation);
 		simulation->philos[i].sim = simulation;
 		i += 1;
 	}

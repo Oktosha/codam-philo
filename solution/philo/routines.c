@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:00:32 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/11 13:19:06 by codespace     ########   odam.nl         */
+/*   Updated: 2023/10/11 16:10:36 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	ph_act( \
 	t_ph_time	new_death_time_us;
 
 	pthread_mutex_lock(first_fork);
-	timestamp_us = ph_time_us();
+	timestamp_us = ph_time_us(PH_TIME_GET);
 	ph_announce(timestamp_us, philo, "has taken a fork");
 	pthread_mutex_lock(second_fork);
-	timestamp_us = ph_time_us();
+	timestamp_us = ph_time_us(PH_TIME_GET);
 	new_death_time_us = timestamp_us + ph_time_to_die_us(philo->sim);
 	pthread_mutex_lock(&(philo->sim->mutex));
 	philo->death_time_us = new_death_time_us;
@@ -34,30 +34,34 @@ static void	ph_act( \
 	ph_aware_sleep_till(alarm_time_us, philo->sim);
 	pthread_mutex_unlock(first_fork);
 	pthread_mutex_unlock(second_fork);
-	timestamp_us = ph_time_us();
+	timestamp_us = ph_time_us(PH_TIME_GET);
 	pthread_mutex_lock(&(philo->sim->mutex));
 	philo->eaten_meals += 1;
 	pthread_mutex_unlock(&(philo->sim->mutex));
 	ph_announce(timestamp_us, philo, "is sleeping");
 	alarm_time_us = timestamp_us + ph_time_to_sleep_us(philo->sim);
 	ph_aware_sleep_till(alarm_time_us, philo->sim);
-	timestamp_us = ph_time_us();
+	timestamp_us = ph_time_us(PH_TIME_GET);
 	ph_announce(timestamp_us, philo, "is thinking");
 }
 
 static void	ph_loop(t_philo *philo, t_fork *first_fork, t_fork *second_fork)
 {
 	int	sim_is_running;
+	int	i;
 
 	pthread_mutex_lock(&(philo->sim->mutex));
 	pthread_mutex_unlock(&(philo->sim->mutex));
 	sim_is_running = PH_TRUE;
+	i = 0;
 	while (sim_is_running)
 	{
+		printf("act %d by philo #%d\n", i, philo->name);
 		ph_act(philo, first_fork, second_fork);
 		pthread_mutex_lock(&(philo->sim->mutex));
 		sim_is_running = philo->sim->status == SIM_RUN;
 		pthread_mutex_unlock(&(philo->sim->mutex));
+		i += 1;
 	}
 }
 
@@ -88,7 +92,7 @@ void	*ph_lonely_routine(void	*arg)
 	pthread_mutex_lock(&(philo->sim->mutex));
 	pthread_mutex_unlock(&(philo->sim->mutex));
 	pthread_mutex_lock(philo->left_fork);
-	timestamp_us = ph_time_us();
+	timestamp_us = ph_time_us(PH_TIME_GET);
 	ph_announce(timestamp_us, philo, "has taken a fork");
 	pthread_mutex_unlock(philo->left_fork);
 	return (NULL);
