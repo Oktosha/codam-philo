@@ -1,6 +1,6 @@
 SHELL=/bin/sh
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -pthread -g
+CFLAGS=-Wall -Wextra -Werror -pthread -g -fsanitize=thread
 
 NAME=philo
 
