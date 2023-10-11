@@ -25,9 +25,9 @@ int main(int argc, char **argv)
 	status = ph_parse_all_args(5, normal, &args);
 	assert(status == PH_SUCCESS);
 	assert(args.n_philos == 1);
-	assert(args.time_to_die == 12);
-	assert(args.time_to_eat == 30);
-	assert(args.time_to_sleep == 100);
+	assert(args.time_to_die_ms == 12);
+	assert(args.time_to_eat_ms == 30);
+	assert(args.time_to_sleep_ms == 100);
 	assert(args.times_each_eats == -1);
 	printf("..correct!\n\n");
 
@@ -36,9 +36,9 @@ int main(int argc, char **argv)
 	status = ph_parse_all_args(6, normal_with_optional, &args);
 	assert(status == PH_SUCCESS);
 	assert(args.n_philos == 1);
-	assert(args.time_to_die == 12);
-	assert(args.time_to_eat == 30);
-	assert(args.time_to_sleep == 100);
+	assert(args.time_to_die_ms == 12);
+	assert(args.time_to_eat_ms == 30);
+	assert(args.time_to_sleep_ms == 100);
 	assert(args.times_each_eats == 10);
 	printf("..correct!\n\n");
 

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 11:59:24 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/09 11:11:06 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/11 13:10:44 by codespace     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void	ph_init_philos(t_simulation *simulation)
 		simulation->philos[i].left_fork = simulation->forks + left_fork_i;
 		simulation->philos[i].right_fork = simulation->forks + right_fork_i;
 		simulation->philos[i].eaten_meals = 0;
-		simulation->philos[i].death_time = simulation->args.time_to_die;
+		simulation->philos[i].death_time_us = \
+			simulation->args.time_to_die_ms * 1000ll;
 		simulation->philos[i].sim = simulation;
 		i += 1;
 	}
@@ -63,7 +64,6 @@ static void	ph_init_philos(t_simulation *simulation)
 t_status	ph_init_data(t_simulation *simulation)
 {
 	simulation->status = SIM_INIT;
-	simulation->start_time = PH_NOT_STARTED;
 	simulation->philos = malloc(sizeof(t_philo) * simulation->args.n_philos);
 	simulation->forks = malloc(sizeof(t_fork) * simulation->args.n_philos);
 	if (simulation->philos == NULL || simulation->forks == NULL)
