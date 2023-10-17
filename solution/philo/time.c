@@ -6,10 +6,11 @@
 /*   By: codespace <codespace@student.codam.nl>       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 14:05:45 by codespace     #+#    #+#                 */
-/*   Updated: 2023/10/11 15:55:28 by dkolodze      ########   odam.nl         */
+/*   Updated: 2023/10/17 15:31:30 by dkolodze      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <assert.h>
 #include "philo.h"
 
 static t_ph_time	ph_absolute_time_us(void)
@@ -26,6 +27,7 @@ t_ph_time	ph_time_us(t_ph_time_action action)
 
 	if (action == PH_TIME_SET)
 	{
+		assert(start_time == PH_NOT_STARTED);
 		start_time = ph_absolute_time_us();
 		return (start_time);
 	}
